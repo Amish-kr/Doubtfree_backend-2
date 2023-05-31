@@ -11,7 +11,7 @@ export const resetPasswordMailer = async(email, token) => {
             subject: "Reset Password",
             html: `
       <h4>You have requested for password reset  and here is your token ${token}</4>
-      <strong>click in this <a href="https://main--effortless-froyo-5575b8.netlify.app/reset-password/${token}">http://localhost:3000/reset-password//${token}</a> to reset password</strong>
+      <strong>click in this <a href="https://main--effortless-froyo-5575b8.netlify.app/reset-password/${token}">https://main--effortless-froyo-5575b8.netlify.app/reset-password//${token}</a> to reset password</strong>
       `,
         },
         (err, info) => {
