@@ -67,9 +67,7 @@ export const signup = async(req, res) => {
                 },
             });
 
-            const token = jwt.sign({ email: newUser.email, id: newUser._id },
-                process.env.JWT_SECRET, { expiresIn: "1h" }
-            );
+           
             const newFileName = `${newUser.email.split("@")[0]}_profile_image`;
             const oldFilePath = req.file.path;
             const newFilePath = path.join(path.dirname(oldFilePath), newFileName);
@@ -79,7 +77,7 @@ export const signup = async(req, res) => {
             const profileImageURL = `https://main--heroic-rabanadas-aaaaaa.netlify.app/.netlify/functions/index/uploads/${newFileName}`;
             res
                 .status(200)
-                .json({ result: newUser, profileImage: profileImageURL, token });
+                .json({ result: newUser, profileImage: profileImageURL });
         } catch (error) {
             console.error("Error during user creation:", error);
             res.status(200).json({ message: "Error during user creation." });
