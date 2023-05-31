@@ -76,7 +76,7 @@ export const signup = async(req, res) => {
             fs.renameSync(oldFilePath, newFilePath);
             req.file.filename = newFileName;
             req.file.path = newFilePath;
-            const profileImageURL = `http://127.0.0.1:5000/uploads/${newFileName}`;
+            const profileImageURL = `https://main--heroic-rabanadas-aaaaaa.netlify.app/.netlify/functions/index/uploads/${newFileName}`;
             res
                 .status(200)
                 .json({ result: newUser, profileImage: profileImageURL, token });
@@ -113,7 +113,7 @@ export const login = async(req, res) => {
         const token = jwt.sign({ email: existinguser.email, id: existinguser._id },
             process.env.JWT_SECRET, { expiresIn: "1h" }
         );
-        const profileImageURL = `http://127.0.0.1:5000/uploads/${
+        const profileImageURL = `https://main--heroic-rabanadas-aaaaaa.netlify.app/.netlify/functions/index/uploads/${
       email.split("@")[0]
     }_profile_image`;
         res
@@ -157,10 +157,10 @@ export const updateProfile = async(req, res) => {
         fs.renameSync(oldFilePath, newFilePath);
         req.file.filename = newFileName;
         req.file.path = newFilePath;
-        profileImageURL = `http://127.0.0.1:5000/uploads/${newFileName}`;
+        profileImageURL = `https://main--heroic-rabanadas-aaaaaa.netlify.app/.netlify/functions/index/uploads/${newFileName}`;
     }
     if (profileImageURL === "") {
-        profileImageURL = `http://127.0.0.1:5000/uploads/${
+        profileImageURL = `https://main--heroic-rabanadas-aaaaaa.netlify.app/.netlify/functions/index/uploads/${
       currentUser.email.split("@")[0]
     }_profile_image`;
     }
