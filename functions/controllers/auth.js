@@ -76,7 +76,7 @@ export const signup = async(req, res) => {
             fs.renameSync(oldFilePath, newFilePath);
             req.file.filename = newFileName;
             req.file.path = newFilePath;
-            const profileImageURL = `http://127.0.0.1:5000/uploads/${newFileName}`;
+            const profileImageURL = `https://main--heroic-rabanadas-aaaaaa.netlify.app/.netlify/functions/uploads/${newFileName}`;
             res
                 .status(200)
                 .json({ result: newUser, profileImage: profileImageURL, token });
@@ -89,40 +89,45 @@ export const signup = async(req, res) => {
     }
 };
 
-export const login = async(req, res) => {
-    const { email, password } = req.body;
-    if (!email | !password) {
-        return res.status(400).json({
-            error: "Empty fields",
-            message: {
-                email: "This field is required",
-                password: "This field is required",
-            },
-        });
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({
+      error: "Empty fields",
+      message: {
+        email: "This field is required",
+        password: "This field is required",
+      },
+    });
+  }
+  try {
+    const existingUser = await UserModel.findOne({ email });
+    console.log(existingUser);
+    if (!existingUser) {
+      return res.status(404).json({ message: "User doesn't exist." });
     }
-    try {
-        const existinguser = await UserModel.findOne({ email });
-        if (!existinguser) {
-            return res.status(404).json({ message: "User don't Exist." });
-        }
 
-        const isPasswordCrt = await bcrypt.compare(password, existinguser.password);
-        if (!isPasswordCrt) {
-            return res.status(400).json({ message: "Invalid credentials" });
-        }
-        const token = jwt.sign({ email: existinguser.email, id: existinguser._id },
-            process.env.JWT_SECRET, { expiresIn: "1h" }
-        );
-        const profileImageURL = `http://127.0.0.1:5000/uploads/${
-      email.split("@")[0]
-    }_profile_image`;
-        res
-            .status(200)
-            .json({ result: existinguser, profileImage: profileImageURL, token });
-    } catch (error) {
-        res.status(200).json({ message: "Something went worng..." });
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ message: "Invalid credentials" });
     }
+
+    const profileImageURL = `https://main--heroic-rabanadas-aaaaaa.netlify.app/.netlify/functions/uploads/${email
+      .split("@")[0]
+      .toLowerCase()}_profile_image`;
+
+    res
+      .status(200)
+      .json({ result: existingUser, profileImage: profileImageURL });
+  } catch (error) {
+    console.error("Error occurred during login:", error);
+    res.status(500).json({ message: "Something went wrong during login" });
+  }
 };
+
 
 export const updateProfile = async(req, res) => {
     const { residence, mobile_number, introduction, gender, date_of_birth, _id } =
@@ -157,10 +162,10 @@ export const updateProfile = async(req, res) => {
         fs.renameSync(oldFilePath, newFilePath);
         req.file.filename = newFileName;
         req.file.path = newFilePath;
-        profileImageURL = `http://127.0.0.1:5000/uploads/${newFileName}`;
+        profileImageURL = `https://main--heroic-rabanadas-aaaaaa.netlify.app/.netlify/functions/uploads/${newFileName}`;
     }
     if (profileImageURL === "") {
-        profileImageURL = `http://127.0.0.1:5000/uploads/${
+        profileImageURL = `https://main--heroic-rabanadas-aaaaaa.netlify.app/.netlify/functions/uploads/${
       currentUser.email.split("@")[0]
     }_profile_image`;
     }
