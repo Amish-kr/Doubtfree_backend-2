@@ -18,8 +18,8 @@ router.get("/", (req, res) => {
     });
 });
 
-app.use(`/.netlify/functions`, router);
-// app.use("/.netlify/functions/api", routes);
+// app.use('/', router);
+app.use("/.netlify/functions/index", router);
 const PORT = 5000;
 
 // const DATABASE_URL = "mongodb://127.0.0.1:27017/readycoder";
@@ -38,4 +38,5 @@ mongoose
 
 
 // module.exports.handler = serverless(app);
+
 export const handler = serverless(app);
