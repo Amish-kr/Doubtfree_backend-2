@@ -22,7 +22,7 @@ export const getAllCourses = async(req, res) => {
         let updatatedCourses = [];
         if (courses.length > 0) {
             courses.map((course) => {
-                const bannerImageUrl = `http://127.0.0.1:5000/uploads/${course.title}_course`;
+                const bannerImageUrl = `https://main--heroic-rabanadas-aaaaaa.netlify.app/.netlify/functions/uploads/${course.title}_course`;
                 updatatedCourses.push({
                     course: course,
                     bannerImageUrl: bannerImageUrl,
@@ -72,7 +72,7 @@ export const addcourse = async(req, res) => {
             fs.renameSync(oldFilePath, newFilePath);
             req.file.filename = newFileName;
             req.file.path = newFilePath;
-            bannerImageUrl = `http://127.0.0.1:5000/uploads/${newFileName}`;
+            bannerImageUrl = `https://main--heroic-rabanadas-aaaaaa.netlify.app/.netlify/functions/uploads/${newFileName}`;
         }
 
         await course.save();
@@ -112,7 +112,7 @@ export const addcontent = async(req, res) => {
             fs.renameSync(oldFilePath, newFilePath);
             req.file.filename = newFileName;
             req.file.path = newFilePath;
-            const pdfUrl = `http://127.0.0.1:5000/uploads/${newFileName}`;
+            const pdfUrl = `https://main--heroic-rabanadas-aaaaaa.netlify.app/.netlify/functions/uploads/${newFileName}`;
             content.pdfFiles = pdfUrl;
         }
 
