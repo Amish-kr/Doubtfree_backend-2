@@ -16,6 +16,6 @@ const courseSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
-const CourseModel = model("Course", courseSchema);
 
-export default CourseModel;
+
+export const CourseModel = model("Course", courseSchema);;

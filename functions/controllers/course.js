@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import CourseModel from "../models/course.js";
-import ContentModel from "../models/content.js";
+import { CourseModel } from "../models/course.js";
+import { ContentModel } from "../models/content.js";
 import fs from "fs";
 import path from "path";
-import UserModel from "../models/auth.js";
+import { UserModel } from "../models/auth.js";
 
 export const getCoursesByTags = async(req, res) => {
     const { tags } = req.query;

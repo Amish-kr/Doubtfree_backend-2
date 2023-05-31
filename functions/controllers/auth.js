@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import UserModel from "../models/auth.js";
+import { UserModel } from "../models/auth.js";
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
