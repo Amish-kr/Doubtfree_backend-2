@@ -5,7 +5,7 @@ import {
     updateProfile,
     resetPassword,
     newPassword,
-} from "../controllers/auth.js";
+} from "../controllers/auth";
 import {
     getCoursesByTags,
     addcourse,
@@ -42,4 +42,4 @@ router.post("/resetPassword", resetPassword);
 router.post("/new-password", newPassword);
 
 
-export default router;
+export const routes = router;

@@ -2,7 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import router from "./routes/users.js"; // Import the routes module
+import { routes } from "./routes/users" // Import the routes module
 import serverless from "serverless-http";
 
 const app = express();
@@ -12,14 +12,15 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
 
-router.get("/", (req, res) => {
+routes.get("/", (req, res) => {
     res.json({
-        hello: "hi!"
+        message: "Hello, this is welcome page.",
+        path: "/"
     });
 });
 
 // app.use('/', router);
-app.use("/.netlify/functions/index", router);
+app.use("/.netlify/functions/index", routes);
 const PORT = 5000;
 
 // const DATABASE_URL = "mongodb://127.0.0.1:27017/readycoder";
